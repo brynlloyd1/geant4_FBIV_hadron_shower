@@ -29,12 +29,12 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     // world
     G4VSolid* solidWorld = new G4Box("solidWorld", 0.5*m, 0.5*m, 0.5*m);
     G4LogicalVolume* logicWorld = new G4LogicalVolume(solidWorld, vacuumMaterial, "logicWorld");
-    G4VPhysicalVolume* physWorld = new G4PVPlacement(0, G4ThreeVector(), logicWorld,"logicWorld", 0, false, checkOverlaps);
+    G4VPhysicalVolume* physWorld = new G4PVPlacement(0, G4ThreeVector(), logicWorld,"logicWorld", 0, false, 0, checkOverlaps);
 
     // meteorite
     G4VSolid* solidMeteorite = new G4Tubs("solidMeteorite", 0.*m, 0.005*m, 0.05*m, 0., 360.0*deg);
     G4LogicalVolume* logicMeteorite = new G4LogicalVolume(solidMeteorite, meteoriteMaterial, "logicMeteorite");
-    G4VPhysicalVolume* physMeteorite = new G4PVPlacement(0, G4ThreeVector(), logicMeteorite, "logicMeteorite", logicWorld, false, checkOverlaps);
+    G4VPhysicalVolume* physMeteorite = new G4PVPlacement(0, G4ThreeVector(), logicMeteorite, "logicMeteorite", logicWorld, false, 0, checkOverlaps);
 
     return physWorld;
 }

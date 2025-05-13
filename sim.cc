@@ -17,8 +17,9 @@
 
 int main(int argc, char** argv) {
 
-
-    // run manager setup
+    ///////////////////////
+    // run manager setup //
+    ///////////////////////
     auto* runManager = G4RunManagerFactory::CreateRunManager();
 
     G4VUserDetectorConstruction* detector = new brynDetectorConstruction;
@@ -32,24 +33,46 @@ int main(int argc, char** argv) {
 
     runManager->Initialize();
 
-    //scoring manager setup
-    // vis manager setup
+    //////////////////////////
+    //scoring manager setup //
+    //////////////////////////
+
+
+    ///////////////////////
+    // vis manager setup //
+    ///////////////////////
     G4VisManager* visManager = new G4VisExecutive;
     visManager->Initialize();
 
-
-    // ui manager setup
-    G4UImanager* UImanager = G4UImanager::GetUIpointer();
-
-    // if you pass no macro file as an argument, the default is vis.mac. Otherwise, it runs in batch mode with the macros specified
+    //////////////////////
+    // UI manager setup //
+    //////////////////////
+    G4UIExecutive* ui = nullptr;
     if (argc == 1) {
-        G4UIExecutive* ui = new G4UIExecutive(argc, argv);
-        UImanager->ApplyCommand("control/execute vis.mac");
+        ui = new G4UIExecutive(argc, argv);
+    }
+    G4UImanager* UImanager = G4UImanager::GetUIpointer();
+    if (ui) {
+        UImanager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
         delete ui;
     } else {
-        UImanager->ApplyCommand(std::string("control/execute") + argv[1]);
+        UImanager->ApplyCommand(std::string("/control/execute") + argv[1]);
+        ui->SessionStart();
+        delete ui;
     }
+
+
+    // if (argc == 1) {
+    //     G4UIExecutive* ui = new G4UIExecutive(argc, argv);
+    //     UImanager->ApplyCommand("control/execute vis.mac");
+    //     ui->SessionStart();
+    //     delete ui;
+    // } else {
+    //     UImanager->ApplyCommand(std::string("control/execute") + argv[1]);
+    // }
+
     delete runManager;
+    delete visManager;
 }
 

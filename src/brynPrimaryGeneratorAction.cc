@@ -10,8 +10,8 @@ brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
     G4int nParticles = 1;
     const G4String& particleName = "proton";
     G4double energy = 440 * GeV;
-    G4ThreeVector position = G4ThreeVector(0., 0., 0.);
-    G4ThreeVector momentum = G4ThreeVector(1., 0., 0.);
+    G4ThreeVector position = G4ThreeVector(0., 0., -0.4*m);
+    G4ThreeVector momentum = G4ThreeVector(0., 0., 1.);
 
     particleGun = new G4ParticleGun(nParticles);
 
@@ -23,6 +23,7 @@ brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
     particleGun->SetParticleEnergy(energy);
     particleGun->SetParticlePosition(position);
     particleGun->SetParticleMomentumDirection(momentum);
+    G4cout << "has this worked??" << G4endl;
 }
 
 brynPrimaryGeneratorAction::~brynPrimaryGeneratorAction() {
