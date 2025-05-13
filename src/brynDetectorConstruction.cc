@@ -13,9 +13,9 @@
 
 G4VPhysicalVolume* brynDetectorConstruction::Construct() {
 
-    ///////////////////////
+    ////////////////////////
     // defining materials //
-    ///////////////////////
+    ////////////////////////
     G4NistManager* NistManager = G4NistManager::Instance();
     G4Material* vacuumMaterial = NistManager->FindOrBuildMaterial("G4_Galactic");
     // will be Fe + Ni + trace amounts of high Z elements eventually
