@@ -1,9 +1,7 @@
 #include "brynPrimaryActionGenerator.hh"
 
-#include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
-
 #include "G4SystemofUnits.hh"
 
 brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
@@ -23,7 +21,6 @@ brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
     particleGun->SetParticleEnergy(energy);
     particleGun->SetParticlePosition(position);
     particleGun->SetParticleMomentumDirection(momentum);
-    G4cout << "has this worked??" << G4endl;
 }
 
 brynPrimaryGeneratorAction::~brynPrimaryGeneratorAction() {

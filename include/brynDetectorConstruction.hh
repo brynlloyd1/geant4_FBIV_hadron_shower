@@ -1,14 +1,12 @@
 #ifndef brynDetectorConstruction_hh
 #define brynDetectorConstruction_hh
 
-#include <G4RunManager.hh>
-#include "G4VPhysicalVolume.hh"
 #include "G4VUserDetectorConstruction.hh"
 
 // (public => public inheritiance => public members will stay public and private members will stay private)
 class brynDetectorConstruction : public G4VUserDetectorConstruction {
     public:
-        // default just asks the compiler to write the constructor and destructor methods for us
+        // default just asks the compiler to write the method
         brynDetectorConstruction() = default;
         ~brynDetectorConstruction() override = default;
 

@@ -1,7 +1,6 @@
 #ifndef brynPrimaryGeneratorAction_hh
 #define brynPrimaryGeneratorAction_hh
 
-// mandatory include
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4ParticleGun.hh"
 

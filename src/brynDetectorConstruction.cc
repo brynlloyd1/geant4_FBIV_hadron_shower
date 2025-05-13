@@ -1,14 +1,14 @@
 #include "brynDetectorConstruction.hh"
 
+// imports for materials
 #include "G4NistManager.hh"
-// will need this to create my own material for the meteorite
 // #include "G4Material.hh"
 
+// imports for volumes
 #include "G4Box.hh"
 #include "G4Tubs.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
-
 #include "G4SystemOfUnits.hh"
 
 G4VPhysicalVolume* brynDetectorConstruction::Construct() {

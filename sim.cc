@@ -5,13 +5,13 @@
 #include "G4UIManager.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
+#include "G4VisManager.hh"
 
 #include "FTFP_BERT.hh"
 
 // bryn imports
 #include "brynDetectorConstruction.hh"
 #include "brynActionInitialisation.hh"
-#include <G4VisManager.hh>
 
 
 
@@ -21,16 +21,9 @@ int main(int argc, char** argv) {
     // run manager setup //
     ///////////////////////
     auto* runManager = G4RunManagerFactory::CreateRunManager();
-
-    G4VUserDetectorConstruction* detector = new brynDetectorConstruction;
-    // might eventually need to write a whole file for the physics_list
-    G4VUserPhysicsList* physics_list = new FTFP_BERT;
-    brynActionInitialisation* action = new brynActionInitialisation;
-
-    runManager->SetUserInitialization(detector);
-    runManager->SetUserInitialization(physics_list);
-    runManager->SetUserInitialization(action);
-
+    runManager->SetUserInitialization(new brynDetectorConstruction);
+    runManager->SetUserInitialization(new FTFP_BERT);
+    runManager->SetUserInitialization(new brynActionInitialisation);
     runManager->Initialize();
 
     //////////////////////////
@@ -47,32 +40,21 @@ int main(int argc, char** argv) {
     //////////////////////
     // UI manager setup //
     //////////////////////
-    G4UIExecutive* ui = nullptr;
+    G4UIExecutive* ui;
+    G4UImanager* UImanager = G4UImanager::GetUIpointer();
     if (argc == 1) {
         ui = new G4UIExecutive(argc, argv);
-    }
-    G4UImanager* UImanager = G4UImanager::GetUIpointer();
-    if (ui) {
         UImanager->ApplyCommand("/control/execute vis.mac");
-        ui->SessionStart();
-        delete ui;
     } else {
+        ui = nullptr;
         UImanager->ApplyCommand(std::string("/control/execute") + argv[1]);
-        ui->SessionStart();
-        delete ui;
     }
+    ui->SessionStart();
 
-
-    // if (argc == 1) {
-    //     G4UIExecutive* ui = new G4UIExecutive(argc, argv);
-    //     UImanager->ApplyCommand("control/execute vis.mac");
-    //     ui->SessionStart();
-    //     delete ui;
-    // } else {
-    //     UImanager->ApplyCommand(std::string("control/execute") + argv[1]);
-    // }
-
+    /////////////
+    // cleanup //
+    /////////////
+    delete ui;
     delete runManager;
     delete visManager;
 }
-
