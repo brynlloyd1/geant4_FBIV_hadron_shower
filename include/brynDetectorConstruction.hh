@@ -14,9 +14,5 @@ class brynDetectorConstruction : public G4VUserDetectorConstruction {
 
         // Construct() returns an instance of G4VPhysicalVolume. It is a virtual method, so we have to overwrite it
         virtual G4VPhysicalVolume* Construct() override;
-
-    private:
-        G4Material* vacuum_material;
-        G4Material* meteorite_material;
 };
 #endif

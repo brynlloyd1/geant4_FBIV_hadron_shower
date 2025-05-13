@@ -4,12 +4,14 @@
 
 #include "G4UIManager.hh"
 #include "G4UIExecutive.hh"
+#include "G4VisExecutive.hh"
 
 #include "FTFP_BERT.hh"
 
 // bryn imports
 #include "brynDetectorConstruction.hh"
 #include "brynActionInitialisation.hh"
+#include <G4VisManager.hh>
 
 
 
@@ -20,6 +22,7 @@ int main(int argc, char** argv) {
     auto* runManager = G4RunManagerFactory::CreateRunManager();
 
     G4VUserDetectorConstruction* detector = new brynDetectorConstruction;
+    // might eventually need to write a whole file for the physics_list
     G4VUserPhysicsList* physics_list = new FTFP_BERT;
     brynActionInitialisation* action = new brynActionInitialisation;
 
@@ -31,6 +34,9 @@ int main(int argc, char** argv) {
 
     //scoring manager setup
     // vis manager setup
+    G4VisManager* visManager = new G4VisExecutive;
+    visManager->Initialize();
+
 
     // ui manager setup
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
