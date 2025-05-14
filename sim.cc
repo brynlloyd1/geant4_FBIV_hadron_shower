@@ -26,11 +26,6 @@ int main(int argc, char** argv) {
     runManager->SetUserInitialization(new brynActionInitialisation);
     runManager->Initialize();
 
-    //////////////////////////
-    //scoring manager setup //
-    //////////////////////////
-
-
     ///////////////////////
     // vis manager setup //
     ///////////////////////
@@ -40,6 +35,7 @@ int main(int argc, char** argv) {
     //////////////////////
     // UI manager setup //
     //////////////////////
+    // gives user choice between batch mode (specify macro files) or interactive mode (dont specify any macro file)
     G4UIExecutive* ui;
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
     if (argc == 1) {
