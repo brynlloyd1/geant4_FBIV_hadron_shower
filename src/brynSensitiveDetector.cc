@@ -46,7 +46,7 @@ G4bool brynSensitiveDetector::ProcessHits(G4Step* step,
 void brynSensitiveDetector::EndOfEvent(G4HCofThisEvent* hitsCollection) {
     // write results to a file
 
-    std::ofstream outFile("KE_data.csv", std::ios::app);
+    std::ofstream outFile("KE_data.csv");
     if (!outFile) {
         std::cerr << "Error opening file\n";
     }
