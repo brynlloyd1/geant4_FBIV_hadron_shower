@@ -21,9 +21,25 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     ////////////////////////
     G4NistManager* NistManager = G4NistManager::Instance();
     G4Material* vacuumMaterial = NistManager->FindOrBuildMaterial("G4_Galactic");
-    // will be Fe + Ni + trace amounts of high Z elements eventually
-    G4Material* meteoriteMaterial = NistManager->FindOrBuildMaterial("G4_Fe");
+    // G4Material* meteoriteMaterial = NistManager->FindOrBuildMaterial("G4_Fe");
+    // G4Material* meteoriteMaterial = NistManager->FindOrBuildMaterial("G4_U");
     G4Material* detectorMaterial = NistManager->FindOrBuildMaterial("G4_Galactic");
+
+
+    // Iron
+    G4double z = 26.;
+    G4double a = 55.8 * g/mole;
+    G4Element* Fe = new G4Element("Iron", "Fe", z, a);
+    // Nickel
+    z = 28.;
+    a = 58.7 * g/mole;
+    G4Element* Ni = new G4Element("Nickel", "Ni", z, a);
+
+    // meteorite material is 85% iron, 15% nickel
+    G4Material* meteoriteMaterial = new G4Material("meteoriteMaterial", 8.02 * g/cm3, 2);
+    meteoriteMaterial->AddElement(Fe, 0.85);
+    meteoriteMaterial->AddElement(Ni, 0.15);
+
 
     ///////////////////////
     // setup of geometry //
