@@ -1,4 +1,5 @@
 #include "brynDetectorConstruction.hh"
+#include "brynSensitiveDetector.hh"
 
 // imports for materials
 #include "G4NistManager.hh"
@@ -10,6 +11,7 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4SDManager.hh"
 
 G4VPhysicalVolume* brynDetectorConstruction::Construct() {
 
@@ -20,6 +22,7 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     G4Material* vacuumMaterial = NistManager->FindOrBuildMaterial("G4_Galactic");
     // will be Fe + Ni + trace amounts of high Z elements eventually
     G4Material* meteoriteMaterial = NistManager->FindOrBuildMaterial("G4_Fe");
+    G4Material* detectorMaterial = NistManager->FindOrBuildMaterial("G4_Galactic");
 
     ///////////////////////
     // setup of geometry //
@@ -36,5 +39,17 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     G4LogicalVolume* logicMeteorite = new G4LogicalVolume(solidMeteorite, meteoriteMaterial, "logicMeteorite");
     G4VPhysicalVolume* physMeteorite = new G4PVPlacement(0, G4ThreeVector(), logicMeteorite, "logicMeteorite", logicWorld, false, 0, checkOverlaps);
 
+    // detector
+    G4ThreeVector detectorPosition = G4ThreeVector(0., 0., 0.4*m);
+    G4VSolid* solidDetector = new G4Box("solidDetector", 0.4*m, 0.4*m, 0.05*m);
+    logicDetector = new G4LogicalVolume(solidDetector, detectorMaterial, "logicDetector");
+    G4VPhysicalVolume* physDetector = new G4PVPlacement(0, detectorPosition, logicDetector, "logicDetector", logicWorld, false, 0, checkOverlaps);
+
     return physWorld;
+}
+
+void brynDetectorConstruction::ConstructSDandField() {
+    brynSensitiveDetector* sensitiveDetector = new brynSensitiveDetector("sensitiveDetector", "fHitsCollection");
+    logicDetector->SetSensitiveDetector(sensitiveDetector);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensitiveDetector);
 }

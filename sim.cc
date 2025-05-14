@@ -1,12 +1,10 @@
 // geant4 imports
 #include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
-
 #include "G4UIManager.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
 #include "G4VisManager.hh"
-
 #include "FTFP_BERT.hh"
 
 // bryn imports

@@ -12,5 +12,10 @@ class brynDetectorConstruction : public G4VUserDetectorConstruction {
 
         // Construct() returns an instance of G4VPhysicalVolume. It is a virtual method, so we have to overwrite it
         virtual G4VPhysicalVolume* Construct() override;
+
+    private:
+        virtual void ConstructSDandField() override;
+        // needs to be defined in the header because its used in both Construct() and ConstructSDandField()
+        G4LogicalVolume* logicDetector;
 };
 #endif
