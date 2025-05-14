@@ -51,7 +51,7 @@ void brynSensitiveDetector::EndOfEvent(G4HCofThisEvent* hitsCollection) {
         std::cerr << "Error opening file\n";
     }
 
-    outFile << "particleName, kineticEnergy[MeV]\n";
+    outFile << "particleName,kineticEnergy[MeV]\n";
 
     for (size_t i=0; i<fHitsCollection->entries(); i++) {
         brynHit* hit = (*fHitsCollection)[i];

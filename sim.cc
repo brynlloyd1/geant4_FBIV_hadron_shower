@@ -34,21 +34,47 @@ int main(int argc, char** argv) {
     // UI manager setup //
     //////////////////////
     // gives user choice between batch mode (specify macro files) or interactive mode (dont specify any macro file)
-    G4UIExecutive* ui;
-    G4UImanager* UImanager = G4UImanager::GetUIpointer();
-    if (argc == 1) {
+    // G4UIExecutive* ui;
+    // G4UImanager* UImanager = G4UImanager::GetUIpointer();
+    // if (argc == 1) {
+    //     ui = new G4UIExecutive(argc, argv);
+    //     UImanager->ApplyCommand("/control/execute vis.mac");
+    // } else {
+    //     ui = nullptr;
+    //     UImanager->ApplyCommand(std::string("/control/execute ") + argv[1]);
+    // }
+    // ui->SessionStart();
+
+
+    
+    G4UIExecutive* ui = nullptr;
+    if ( argc == 1 ) {
         ui = new G4UIExecutive(argc, argv);
-        UImanager->ApplyCommand("/control/execute vis.mac");
-    } else {
-        ui = nullptr;
-        UImanager->ApplyCommand(std::string("/control/execute") + argv[1]);
     }
-    ui->SessionStart();
+
+
+    // Get the pointer to the User Interface manager
+    //
+    G4UImanager* UImanager = G4UImanager::GetUIpointer();  
+
+    if (ui) {
+        UImanager->ApplyCommand("/control/execute vis.mac");
+        ui->SessionStart();
+        delete ui;
+    } else { 
+        G4String command = "/control/execute ";
+        G4String fileName = argv[1];
+        UImanager->ApplyCommand(command+fileName);
+    }
+
+
+
+
 
     /////////////
     // cleanup //
     /////////////
-    delete ui;
+    // delete ui;
     delete runManager;
     delete visManager;
 }
