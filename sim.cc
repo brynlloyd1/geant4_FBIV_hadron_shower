@@ -33,6 +33,9 @@ int main(int argc, char** argv) {
     //////////////////////
     // UI manager setup //
     //////////////////////
+
+
+    // FOR SOME REASON RUNNING IN BATCH MODE SEGFAULTS WITH THIS ONE
     // gives user choice between batch mode (specify macro files) or interactive mode (dont specify any macro file)
     // G4UIExecutive* ui;
     // G4UImanager* UImanager = G4UImanager::GetUIpointer();
@@ -46,7 +49,6 @@ int main(int argc, char** argv) {
     // ui->SessionStart();
 
 
-    
     G4UIExecutive* ui = nullptr;
     if ( argc == 1 ) {
         ui = new G4UIExecutive(argc, argv);
@@ -66,8 +68,6 @@ int main(int argc, char** argv) {
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command+fileName);
     }
-
-
 
 
 

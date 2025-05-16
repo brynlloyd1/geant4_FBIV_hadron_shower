@@ -2,17 +2,18 @@
 
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
+#include "G4IonTable.hh"
 #include "G4SystemofUnits.hh"
 
 brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
-    G4int nParticles = 1000;
-    const G4String& particleName = "proton";
+    G4int nParticles = 1;
     G4double energy = 440 * GeV;
     G4ThreeVector position = G4ThreeVector(0., 0., -0.4*m);
     G4ThreeVector momentum = G4ThreeVector(0., 0., 1.);
 
     particleGun = new G4ParticleGun(nParticles);
 
+    const G4String& particleName = "proton";
     G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
     G4ParticleDefinition* particleDefinition
         = particleTable->FindParticle(particleName);

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
-project(shower)
+project(hadron_shower)
 
 find_package(Geant4 REQUIRED ui_all vis_all)
 
@@ -16,4 +16,4 @@ file(COPY ${MACRO_FILES} DESTINATION ${CMAKE_BINARY_DIR}/)
 add_executable(sim sim.cc ${sources})
 target_link_libraries(sim ${Geant4_LIBRARIES})
 
-add_custom_target(tutorial DEPENDS sim)
+add_custom_target(hadron_shower DEPENDS sim)
