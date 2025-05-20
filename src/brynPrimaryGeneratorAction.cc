@@ -5,7 +5,7 @@
 #include "G4SystemofUnits.hh"
 
 brynPrimaryGeneratorAction::brynPrimaryGeneratorAction() {
-    G4int nParticles = 10000;
+    G4int nParticles = 1;
     const G4String& particleName = "proton";
     G4double energy = 440 * GeV;
     G4ThreeVector position = G4ThreeVector(0., 0., -0.4*m);

@@ -14,6 +14,9 @@
 #include "G4SystemOfUnits.hh"
 #include "G4SDManager.hh"
 
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
+
 G4VPhysicalVolume* brynDetectorConstruction::Construct() {
 
     ////////////////////////
@@ -61,11 +64,11 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     G4Material*dopedMeteoriteMaterial = new G4Material("dopedMeteoriteMaterial", 8.02 * g/cm3, 3);
     G4double ironPercentage = 0.85;
     G4double nickelPercentage = 0.15;
-    G4double uraniumPercentage = 0.1;
-    G4double total = ironPercentage + nickelPercentage + uraniumPercentage;
+    G4double dopantPercentage = 0.1;
+    G4double total = ironPercentage + nickelPercentage + dopantPercentage;
     G4double ironPercentageCorrected = ironPercentage / total;
     G4double nickelPercentageCorrected = nickelPercentage / total;
-    G4double uraniumPercentageCorrected = uraniumPercentage / total;
+    G4double dopantPercentageCorrected = dopantPercentage / total;
 
     // std::cout << "N's" << ironPercentageCorrected << " " << nickelPercentageCorrected << " " << uraniumPercentageCorrected << std::endl;
 
@@ -73,7 +76,7 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
 
     dopedMeteoriteMaterial->AddElement(Fe, ironPercentageCorrected);
     dopedMeteoriteMaterial->AddElement(Ni, nickelPercentageCorrected);
-    dopedMeteoriteMaterial->AddElement(U, uraniumPercentageCorrected);
+    dopedMeteoriteMaterial->AddElement(Ca, dopantPercentageCorrected);
 
     ///////////////////////
     // setup of geometry //
@@ -96,6 +99,25 @@ G4VPhysicalVolume* brynDetectorConstruction::Construct() {
     logicDetector = new G4LogicalVolume(solidDetector, detectorMaterial, "logicDetector");
     G4VPhysicalVolume* physDetector = new G4PVPlacement(0, G4ThreeVector(), logicDetector, "logicDetector", logicWorld, false, 0, checkOverlaps);
 
+
+
+
+
+
+    //                                        
+    // Visualization attributes
+    logicWorld->SetVisAttributes(G4VisAttributes::GetInvisible());
+
+    G4VisAttributes* meteoriteVisAtt= new G4VisAttributes(G4Colour::Blue());
+    meteoriteVisAtt->SetVisibility(true);
+    meteoriteVisAtt->SetForceSolid(true);
+    logicMeteorite->SetVisAttributes(meteoriteVisAtt);
+
+
+    G4VisAttributes* detectorVisAtt= new G4VisAttributes(G4Colour::White());
+    detectorVisAtt->SetVisibility(true);
+    detectorVisAtt->SetForceWireframe(true);
+    logicDetector->SetVisAttributes(detectorVisAtt);
 
     return physWorld;
 }
