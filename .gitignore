@@ -1,5 +1,6 @@
 geant4_application/build/*
 geant4_applicaion/.cache/*
+geant4_applicaion/.cache/clangd/index
 geant4_application/compile_commands.json
 .DS_Store
 data/
